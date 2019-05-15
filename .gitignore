@@ -1,3 +1,4 @@
 debug
 release
-a.out a.out.dSYM
+a.out
+a.out.dSYM
