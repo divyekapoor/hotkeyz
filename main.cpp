@@ -1,13 +1,13 @@
 /* Each level of "HotKeyz" contains two parts: The first part is intended to help users learn
- the keyboard short cuts in ProTools (control T, option-shift D, etc). The second part is 
+ the keyboard short cuts in ProTools (control T, option-shift D, etc). The second part is
  intended to help users learn the mouse-click modifiers in ProTools (command click, option-shift click,
  etc). There are a total of seven levels.*/
 
 #include "SDL/SDL.h"
-#include "SDL_image/SDL_image.h"
+#include "SDL/SDL_image.h"
 #include "SDL/SDL_thread.h"
-#include "SDL_ttf/SDL_ttf.h"
-#include "sdl_mixer/sdl_mixer.h"
+#include "SDL/SDL_ttf.h"
+#include "SDL/SDL_mixer.h"
 #include <string>
 #include <iostream>
 #include <cstdlib>
@@ -111,7 +111,7 @@ const int SCREEN_BPP = 32;
 
 // TIME_LEVELS determines how many miliseconds long each round is.
 
-const Uint32 TIME_LEVELS[2][7] = 
+const Uint32 TIME_LEVELS[2][7] =
 {
 	{100000, 100000, 152300, 100000, 100000, 152300, 235800},
 	{100000, 100000, 150000, 100000, 100000, 150000, 250000}
@@ -154,7 +154,7 @@ const float SPD_START_LEVELS[7] = {1, 1, 1.5, 1.5, 2, 2, 2.5};
 const short int CS_CHANCE[6] = {20, 30, 50, 70, 90, 100};
 
 // HALFTIME_LEVELS determines at what point the drop speed will increase in the middle of the "keyboard shortcut" rounds
-// (only occurs in levels 3, 6, and 7) 
+// (only occurs in levels 3, 6, and 7)
 const short int HALFTIME_LEVELS[7] = {17, 17, 17, 17, 17, 17, 33};
 
 // SHORTCUT_CS_CHANCE determines the likelyhood of the clockstopper powerup
@@ -165,7 +165,7 @@ const short int SHORTCUT_CS_CHANCE[7] = {50, 50, 40, 50, 50, 40, 35};
 shortcut_codes[0][] determines what combination of shift, control, option, and command should be pressed.
 shortcut_codes[1][] determines what other key should be pressed.
 it's not a constant because it's changed if the user selects the "laptop keyboard" option.*/
-short int shortcut_codes[2][36] = 
+short int shortcut_codes[2][36] =
 {
 	{0, 0, 0, 0, 1, 1, 0, 3, 1, 1, 1, 1, 3, 3, 1, 7, 15, 7, 7, 7, 7, 7, 8, 8, 7, 11, 1, 2, 1, 1, 0, 3, 3, 3, 1, 7},
 	{282, 283, 284, 285, 114, 116, 13, 13, 54, 55, 273, 274, 91, 93, 45, 61, 110, 107, 52, 53, 54, 55, 49, 115, 103, 100, 9, 9, 112, 59, 9, 9, 270, 269, 98, 104}
@@ -235,7 +235,7 @@ struct Shortcuts
 	Uint16 m_Letter;
 	Uint32 m_BanTime;
 	bool m_Ct, m_Op, m_Cm, m_Sh, m_ShowBan;
-	
+
 	Shortcuts(short int, short int, Uint16, short int);
 	void ShowIcon();
 	bool CheckInput();
@@ -258,7 +258,7 @@ Shortcuts::Shortcuts(short int code, short int mod, Uint16 letter, short int col
 	m_Col = col;
 	m_Row = 0;
 	m_ShowBan = false;
-	
+
 	switch (m_Mod)
 	{
 		case 0:
@@ -363,7 +363,7 @@ Shortcuts::Shortcuts(short int code, short int mod, Uint16 letter, short int col
 }
 
 void Shortcuts::ShowIcon()
-{	
+{
 	if ((m_Row == 4) && (((SDL_GetTicks() / 200) % 2) == 0))
 	{
 		apply_surface(X_ICON[m_Col], Y_ICON[m_Row], warning, screen);
@@ -372,7 +372,7 @@ void Shortcuts::ShowIcon()
 	if (m_ShowBan)
 	{
 		apply_surface(X_ICON[m_Col], Y_ICON[m_Row], wrongAns, screen);
-		if ((SDL_GetTicks() - m_BanTime) > 300) 
+		if ((SDL_GetTicks() - m_BanTime) > 300)
 		{
 			m_ShowBan = false;
 		}
@@ -382,37 +382,37 @@ void Shortcuts::ShowIcon()
 bool Shortcuts::CheckInput()
 {
 	Uint8 *keystates = SDL_GetKeyState(NULL);
-	
+
 	bool chk1 = (m_Ct == (keystates[SDLK_LCTRL] || keystates[SDLK_RCTRL]));
 	bool chk2 = (m_Op == (keystates[SDLK_LALT] || keystates[SDLK_RALT]));
 	bool chk3 = (m_Cm == (keystates[SDLK_LMETA] || keystates[SDLK_RMETA]));
 	bool chk4 = (m_Sh == (keystates[SDLK_LSHIFT] || keystates[SDLK_RSHIFT]));
 	bool keyChk = (event.key.keysym.sym == m_Letter);
 	bool oll_korrect = ((chk1) && (chk2) && (chk3) && (chk4) && (keyChk));
-	
+
 	if (!oll_korrect)
 	{
 		m_ShowBan = true;
 		m_BanTime = SDL_GetTicks();
 	}
-	
+
 	return oll_korrect;
 }
 
 bool Shortcuts::MoveDown()
 {
 	bool offscr;
-	
+
 	if (m_Row < 4)
 	{
 		m_Row++;
 		offscr = false;
 	}
-	else 
+	else
 	{
 		offscr = true;
 	}
-	
+
 	return offscr;
 }
 
@@ -421,7 +421,7 @@ struct Hotkeys
 {
 	short int m_Set, m_Hor, m_Ver, m_Kc, m_Speed, m_CSchance;
 	bool m_Ct, m_Op, m_Cm, m_Sh, m_Match, m_OffScr, m_Powerup;
-	
+
 	Hotkeys(short int, short int, short int, short int);
 	void ShowTxt();
 	bool CheckKeys(short int, short int);
@@ -437,13 +437,13 @@ Hotkeys::Hotkeys(short int set, short int kc, short int ver, short int spd)
 	m_Speed = spd;
 	m_CSchance = gr / 1000;
 	m_Powerup = ((rand() % CS_CHANCE[m_CSchance]) == 1);
-		
+
 	if (m_Powerup)
 	{
 		m_Speed = -15;
 		m_Hor = -250;
 	}
-	
+
 	switch (m_Kc)
 	{
 		case 0:
@@ -535,14 +535,14 @@ void Hotkeys::ShowTxt()
 bool Hotkeys::CheckKeys(short int h, short int v)
 {
 	Uint8 *keystates = SDL_GetKeyState( NULL );
-	
+
 	bool chk1 = (m_Ct == (keystates[SDLK_LCTRL] || keystates[SDLK_RCTRL]));
 	bool chk2 = (m_Op == (keystates[SDLK_LALT] || keystates[SDLK_RALT]));
 	bool chk3 = (m_Cm == (keystates[SDLK_LMETA] || keystates[SDLK_RMETA]));
 	bool chk4 = (m_Sh == (keystates[SDLK_LSHIFT] || keystates[SDLK_RSHIFT]));
 	bool mousePos =  ((v > (m_Ver + 10)) && (v < (m_Ver + 155)) && (h > (m_Hor + 5)) && (h < (m_Hor + 205)));
 	m_Match = ((chk1) && (chk2) && (chk3) && (chk4) && (mousePos));
-	
+
 	return m_Match;
 }
 
@@ -558,7 +558,7 @@ bool Hotkeys::MoveLeft()
         {
             m_Hor -= m_Speed;
         }
-        
+
         m_OffScr = (m_Hor < -200);
     }
     else
@@ -592,7 +592,7 @@ int gen_thread(void *data);
 std::vector<Hotkeys> hk;
 std::vector<Shortcuts> scColumns[4];
 
-int main(int argc, char* args[])
+int main(int argc, char** argv)
 {
 	short int keyCombo, vOffset, set, speed, i, x, y, micPos, lostLives, scStatus, badChain, scDiff, scGenRate, dropNumb;
 	unsigned short int hiChain;
@@ -604,27 +604,27 @@ int main(int argc, char* args[])
 	Uint16 nonModifiers[81] = {8, 9, 13, 32, 39, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 59, 61, 91, 92, 93, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 256, 257, 258, 259, 260, 261, 262, 263, 264, 265, 266, 267, 268, 269, 270, 271, 273, 274, 282, 283, 284, 285, 286, 287, 288, 289, 290, 291, 292, 293};
 	std::vector<Uint16> lettersNumbers(nonModifiers, nonModifiers + 81);
 	std::vector<Uint16>::iterator letIter;
-	
+
     if (init() == false)
     {
         return 1;
     }
-	
+
     if (load_files() == false)
     {
         return 1;
     }
-	
+
 	srand(static_cast<unsigned int>(time(0)));
-		
+
 	short int debugLvl = 0;
-	
+
 	// enable these 3 lines of code to skip levels:
-	
+
 	/*apply_surface(10, 300, chooseTxt, screen);
 	SDL_Flip(screen);
 	debugLvl = getLevel();*/
-	
+
 	if (getKeyboardType() == false)
 	{
 		return 1;
@@ -634,7 +634,7 @@ int main(int argc, char* args[])
         clean_up();
         return 0;
     }
-	
+
 	for (levelNum = debugLvl; levelNum < 7; levelNum++)
 	{
 		roundPart = 0;
@@ -649,51 +649,51 @@ int main(int argc, char* args[])
 		lvlHalf = 0;
 		scDiff = SC_DIFFSTART_LEVELS[levelNum];
 		dropNumb = 1;
-		
+
 		scReviewScreen();
-        
+
         if (event.type == SDL_QUIT)
         {
             clean_up();
             return 0;
         }
-		
+
 		scGenRate = scDiff / 10;
 		addShortcutObject((rand() % scGenRate) + 1);
 		initialTime = SDL_GetTicks();
-		
+
 		showShortcutBG();
 		SDL_Flip(screen);
 		Mix_PlayChannel(-1, scStartSound[MUSIC_SPEED[levelNum][0]], 0);
 		SDL_Delay(550);
-		
+
 		Mix_PlayMusic(BGmusic1[MUSIC_SPEED[levelNum][0]], -1);
-		
+
 		/* This is the "keyboard shortcuts" part of the game. Icons that represent ProTools functions
 		 appear at the top of the screen, and then, every 3 to 4 seconds, they drop down by one row.
 		 You must destroy them before they make it all the way down to the bottom of the screen.  To do this,
 		 use the left or right arrow keys to position the shotgun mic directly below a function icon, and
 		 then "shoot" the icon by pressing the appropriate key combination for that icon's function.
 		 (For example, use option+shift+D to shoot the "Duplicate track" icon, etc.) */
-		
+
 		while ((lives > 0) && ((SDL_GetTicks() - initialTime) < TIME_LEVELS[0][levelNum]))
 		{
 			waitTime = SDL_GetTicks();
 			remainingTime = (SDL_GetTicks() - waitTime);
-			
+
 			while (remainingTime < SC_DROPTIME[levelNum][lvlHalf])
 			{
 				/* this while loop contains all the events that occur between icon drops.
 				 it lasts between 3 and 4 seconds, depending on the level.
 				 also, the drop time will speed up halfway through levels 3, 6, and 7. */
-				 
+
 				showShortcutBG();
 				showShortcutIcons();
 				showSCclockstop();
 				showGameData();
 				apply_surface(X_MIC[micPos], 574, mic[(SDL_GetTicks() / 500) % 2], screen);
 				SDL_Flip(screen);
-				
+
 				scStatus = 0;
 				if (SDL_PollEvent(&event))
 				{
@@ -702,12 +702,12 @@ int main(int argc, char* args[])
                         clean_up();
                         return 0;
                     }
-                    
+
                     else if (event.type == SDL_KEYDOWN)
                     {
-                        
+
                         keystates = SDL_GetKeyState(NULL);
-                        
+
                         if (keystates[SDLK_ESCAPE])
                         {
                             // lets you pause the game
@@ -717,12 +717,12 @@ int main(int argc, char* args[])
                                 clean_up();
                                 return 0;
                             }
-                            
+
                             initialTime += pauseOffset;
                             waitTime += pauseOffset;
                             csTime += pauseOffset;
                         }
-                        
+
                         else if ((keystates[SDLK_LEFT]) || (keystates[SDLK_RIGHT]))
                         {
                             // lets you move the shotgun mic
@@ -759,7 +759,7 @@ int main(int argc, char* args[])
                             {
                                 // if your attempt was successful
                                 scScore();
-                                
+
                                 // The variable scDiff is for adaptive difficulty.
                                 scDiff += (scStatus - 2);
                                 if (scDiff > SC_DIFFMAX_LEVELS[levelNum])
@@ -770,7 +770,7 @@ int main(int argc, char* args[])
                                 {
                                     scDiff = 10;
                                 }
-                                
+
                                 check_time = SDL_GetTicks();
                                 showCheck = true;
                                 badChain = 0;
@@ -784,13 +784,13 @@ int main(int argc, char* args[])
                                 }
                                 chain = 0;
                                 score -= 10;
-                                
+
                                 scDiff -= 2;
                                 if (scDiff < 10)
                                 {
                                     scDiff = 10;
                                 }
-                                
+
                                 // badChain is to discourage users from spamming the keys until they find the right answer.
                                 if (badChain == 0)
                                 {
@@ -806,7 +806,7 @@ int main(int argc, char* args[])
                                     badChain = 0;
                                     Mix_PlayChannel(-1, dieSnd, 0);
                                 }
-                                else 
+                                else
                                 {
                                     Mix_PlayChannel(-1, scBadSound, 0);
                                 }
@@ -814,7 +814,7 @@ int main(int argc, char* args[])
                         }
                     }
 				}
-				
+
 				// the stopClock powerup freezes all the icons for 6 seconds, so you have some extra
 				// time to clear the board.
 				if (stopClock)
@@ -831,7 +831,7 @@ int main(int argc, char* args[])
 				}
 				remainingTime = (SDL_GetTicks() - waitTime);
 			}
-			
+
 			// all icons drop down by one row. If any icons have made it all the way to the bottom,
 			// you lose a life.
 			lostLives = dropShortcutIcons();
@@ -858,9 +858,9 @@ int main(int argc, char* args[])
 
 			scGenRate = scDiff / 10;
 			addShortcutObject((rand() % scGenRate) + 1); // new icons are added at the top.
-			
+
 			dropNumb++;
-			
+
 			if (SC_DROPTIME[levelNum][0] != SC_DROPTIME[levelNum][1])
 			{
 				if (dropNumb == HALFTIME_LEVELS[levelNum])
@@ -870,11 +870,11 @@ int main(int argc, char* args[])
 					{
 						scDiff = SC_DIFFSTART_LEVELS[levelNum];
 					}
-					
+
 					Mix_PlayMusic(BGmusic1[MUSIC_SPEED[levelNum][1]], -1);
 				}
 			}
-			
+
 			if (dropNumb == (SC_FINALE_NUMB[levelNum] - 1))
 			{
 				Mix_PlayMusic(finaleMusic1[MUSIC_SPEED[levelNum][1]], 1);
@@ -884,17 +884,17 @@ int main(int argc, char* args[])
 				break;
 			}
 		}
-		
+
 		if (chain > hiChain)
 		{
 			hiChain = chain;
 		}
-		
+
 		scColumns[0].clear();
 		scColumns[1].clear();
 		scColumns[2].clear();
 		scColumns[3].clear();
-		
+
 		if (lives < 1)
 		{
 			Mix_PlayMusic(badFinaleMusic1, 1);
@@ -902,13 +902,13 @@ int main(int argc, char* args[])
 		else
 		{
 			endGameData(hiChain);
-            
+
             if (event.type == SDL_QUIT)
             {
                 clean_up();
                 return 0;
             }
-		
+
 			roundPart = 1;
 			x = 0;
 			y = 0;
@@ -923,27 +923,27 @@ int main(int argc, char* args[])
 			startFinale = false;
 			s = SPD_START_LEVELS[levelNum];
 			gr = GR_START_LEVELS[levelNum];
-			
+
 			reviewScreen();
-            
+
             if (event.type == SDL_QUIT)
             {
                 clean_up();
                 return 0;
             }
-			
+
 			Mix_PlayMusic(BGmusic2, -1);
 			initialTime = SDL_GetTicks();
-			
+
 			thread1 = SDL_CreateThread(gen_thread, NULL);
 		}
-		
+
 		/* This is the "mouse-click modifiers" part of the level. Icons that represent ProTools
 		 functions spawn on the right side of the screen and move left.  You must destroy them
 		 before they make it to the left side of the screen.  To do this, click on the function icons
 		 while pressing the appropriate modifier keys for each function.  (For example, shift-click
 		 for the "select contiguous items" icon, etc.) */
-		
+
 		while ((lives > 0) && ((SDL_GetTicks() - initialTime) < TIME_LEVELS[1][levelNum]))
 		{
 			if (respawn)
@@ -955,21 +955,21 @@ int main(int argc, char* args[])
 				 each icon spawn is random, but it's within a range that is controlled by genRate.  genRate's
 				 value is decreased with each correct answer, so the time between icon spawns gets gradually
 				 shorter. */
-				
+
 				gRegenTime = SDL_GetTicks();
 				respawn = false;
-				
+
 				if (!stopClock)
 				{
 					vOffset = (rand() % 550) + 1;
 					speed = (rand() % 4) + s;
 					set = (rand() % SET_LEVELS[levelNum][0]) + SET_LEVELS[levelNum][1];
 					keyCombo = (rand() % KC_LEVELS[levelNum][0]) + KC_LEVELS[levelNum][1];
-					
+
 					hk.push_back(Hotkeys(set, keyCombo, vOffset, speed));
 				}
 			}
-			
+
 			showBG();
 			showGameData();
 			for (i = 0; i < hk.size(); i++)
@@ -977,7 +977,7 @@ int main(int argc, char* args[])
 				hk[i].ShowTxt();
 			}
 			SDL_Flip(screen);
-			
+
 			if (!startFinale)
 			{
 				if ((TIME_LEVELS[1][levelNum] - (SDL_GetTicks() - initialTime)) <= 4050)
@@ -986,7 +986,7 @@ int main(int argc, char* args[])
 					startFinale = true;
 				}
 			}
-			
+
 			if (!stopClock)
 			{
 				for (i = ((hk.size()) - 1); i >= 0; i--)
@@ -1011,19 +1011,19 @@ int main(int argc, char* args[])
 						}
 						hk.erase((hk.begin()) + i);
 					}
-					
+
 					if (hk.empty())
 					{
 						break;
 					}
 				}
 			}
-			
+
 			if (lives < 1)
 			{
 				break;
 			}
-			
+
 			if (SDL_PollEvent(&event))
 			{
 				if ((event.type == SDL_MOUSEBUTTONDOWN) && (!hk.empty()))
@@ -1066,7 +1066,7 @@ int main(int argc, char* args[])
 						chain = 0;
 					}
 				}
-                
+
 				else if (event.type == SDL_KEYDOWN)
 				{
 					if ((event.key.keysym.sym == SDLK_SPACE) && (csAvail) && (!stopClock))
@@ -1080,7 +1080,7 @@ int main(int argc, char* args[])
                         Mix_PauseMusic();
                         Mix_PlayChannel(3, csMusic, 0);
                     }
-                    
+
                     else if (event.key.keysym.sym == SDLK_ESCAPE)
                     {
                         // if you pause the game
@@ -1095,14 +1095,14 @@ int main(int argc, char* args[])
                         respawn = false;
                     }
 				}
-                
+
                 else if (event.type == SDL_QUIT)
                 {
                     clean_up();
                     return 0;
                 }
 			}
-			
+
 			if (stopClock)
 			{
 				if ((SDL_GetTicks() - csTime) > 6100)
@@ -1112,37 +1112,37 @@ int main(int argc, char* args[])
 				}
 			}
 		}
-		
+
 		if (chain > hiChain)
 		{
 			hiChain = chain;
 		}
-		
+
 		if ((lives < 1) && (roundPart == 1))
 		{
 			Mix_PlayMusic(badFinaleMusic2, 1);
 		}
-		
+
 		endGameData(hiChain);
-        
+
         if (event.type == SDL_QUIT)
         {
             clean_up();
             return 0;
         }
-		
+
 		if (lives < 1)
 		{
 			levelNum--;
 			lives = 5;
 			score = 0;
 		}
-		
+
 		hk.clear();
 	}
-	
+
     clean_up();
-	
+
     return 0;
 }
 
@@ -1151,31 +1151,31 @@ SDL_Surface *load_image(std::string filename)
 {
     SDL_Surface* loadedImage = NULL;
     SDL_Surface* optimizedImage = NULL;
-	
+
     loadedImage = IMG_Load(filename.c_str());
-	
+
     if (loadedImage != NULL)
     {
         optimizedImage = SDL_DisplayFormatAlpha(loadedImage);
-		
+
         SDL_FreeSurface(loadedImage);
-		
+
         if (optimizedImage != NULL)
         {
             SDL_SetColorKey(optimizedImage, SDL_SRCCOLORKEY, SDL_MapRGB( optimizedImage->format, 0, 0xFF, 0xFF));
         }
     }
-	
+
     return optimizedImage;
 }
 
 void apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* clip)
 {
     SDL_Rect offset;
-	
+
     offset.x = x;
     offset.y = y;
-	
+
     SDL_BlitSurface(source, clip, destination, &offset);
 }
 
@@ -1185,31 +1185,31 @@ bool init()
     {
         return false;
     }
-	
+
     screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_SWSURFACE);
-	
+
     if (screen == NULL)
     {
         return false;
     }
-	
+
     if (TTF_Init() == -1)
     {
         return false;
     }
-	
+
 	if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, AUDIO_S16SYS, 2, 4096) == -1)
 	{
 		return false;
 	}
-	
+
 	if (Mix_AllocateChannels(4) == -1)
 	{
 		return false;
 	}
-	
+
     SDL_WM_SetCaption("HotKeyz", NULL);
-	
+
     return true;
 }
 
@@ -1335,11 +1335,11 @@ bool load_files()
 	endScreen = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/endScreen.png");
     pauseMenu[0] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/pause1.png");
     pauseMenu[1] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/pause2.png");
-	
+
     font = TTF_OpenFont("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/Arial Bold.ttf", 32);
 	smallFont = TTF_OpenFont("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/Arial.ttf", 26);
 	bigFont = TTF_OpenFont("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/Arial Bold.ttf", 50);
-	
+
 	failSnd = Mix_LoadWAV("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/failB.wav");
 	dieSnd = Mix_LoadWAV("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/deathSound.wav");
 	succeedSnd = Mix_LoadWAV("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/succeed2.wav");
@@ -1350,7 +1350,7 @@ bool load_files()
 	scBadSound = Mix_LoadWAV("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/scBadSound.wav");
 	oneUpSnd2 = Mix_LoadWAV("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/oneUp2a.wav");
 	oneUpSnd1 = Mix_LoadWAV("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/oneUp1.wav");
-	
+
 	BGmusic2 = Mix_LoadMUS("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/BGmusic2a.wav");
 	BGmusic1[0] = Mix_LoadMUS("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/BGmusic1.wav");
 	BGmusic1[1] = Mix_LoadMUS("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/BGmusic1_faster.wav");
@@ -1363,12 +1363,12 @@ bool load_files()
 	reviewMusic1 = Mix_LoadMUS("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/reviewMusic1.wav");
 	badFinaleMusic1 = Mix_LoadMUS("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/badFinale1.wav");
 	badFinaleMusic2 = Mix_LoadMUS("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/badFinale2.wav");
-    
+
     if ((background[0][0] == NULL) || (background[1][0] == NULL) || (ptImg[0][0] == NULL) || (ptImg[1][0] == NULL) || (csFrame == NULL) || (csPowerup == NULL))
     {
         return false;
     }
-	
+
 	if ((scIcon[0] == NULL) || (mic[0] == NULL) || (scBackground[0] == NULL) || (warning == NULL) || (wrongAns == NULL) || (rightAns == NULL) || (scClockStop == NULL))
 	{
 		return false;
@@ -1377,41 +1377,41 @@ bool load_files()
 	{
 		return false;
 	}
-	
+
 	if ((scIcon[18] == NULL) || (scIcon[26] == NULL) || (scIcon[34] == NULL) || (keyboardPrompt == NULL) || (keyboardTypes[0] == NULL) || (endScreen == NULL))
 	{
 		return false;
 	}
-	
+
     if ((font == NULL) || (bigFont == NULL))
     {
         return false;
     }
-	
+
 	if ((succeedSnd == NULL) || (dieSnd == NULL) || (failSnd == NULL) || (BGmusic2 == NULL) || (BGmusic1[0] == NULL) || (scStartSound == NULL) || (finaleMusic1[0] == NULL))
 	{
 		return false;
 	}
-	
+
 	if ((finaleMusic2 == NULL) || (scGoodSound == NULL) || (scBadSound == NULL) || (oneUpSnd2 == NULL)|| (oneUpSnd1 == NULL) || (reviewMusic2 == NULL))
 	{
 		return false;
 	}
-	
+
 	if ((reviewMusic1 == NULL) || (badFinaleMusic1 == NULL) || (badFinaleMusic2 == NULL))
 	{
 		return false;
 	}
-	
+
 	chooseTxt = TTF_RenderText_Solid(font, "Choose a level (1-7)", textColor);
-	
+
     return true;
 }
 
 void clean_up()
 {
 	SDL_KillThread(thread1);
-	
+
 	SDL_FreeSurface(csFrame);
 	SDL_FreeSurface(csPowerup);
 	SDL_FreeSurface(mic[0]);
@@ -1429,34 +1429,34 @@ void clean_up()
     SDL_FreeSurface(pauseMenu[1]);
 	SDL_FreeSurface(keyboardPrompt);
 	SDL_FreeSurface(endScreen);
-	
+
 	short int i, i2;
-	
+
 	for (i = 0; i < 4; i++)
 	{
 		SDL_FreeSurface(background[0][i]);
 		SDL_FreeSurface(background[1][i]);
 	}
-	
+
 	for (i = 0; i < 12; i++)
 	{
 		SDL_FreeSurface(ptImg[0][i]);
 		SDL_FreeSurface(ptImg[1][i]);
 	}
-	
+
 	for (i = 0; i < 7; i++)
 	{
 		SDL_FreeSurface(review[i]);
 		SDL_FreeSurface(scReview[i]);
 	}
-	
+
 	SDL_FreeSurface(scReview[7]);
-	
+
 	for (i = 0; i < 36; i++)
 	{
 		SDL_FreeSurface(scIcon[i]);
 	}
-	
+
 	for (i = 0; i < 5; i++)
 	{
 		for (i2 = 0; i2 < 4; i2++)
@@ -1464,11 +1464,11 @@ void clean_up()
 			SDL_FreeSurface(wave[i][i2]);
 		}
 	}
-	
+
     TTF_CloseFont(font);
     TTF_CloseFont(smallFont);
 	TTF_CloseFont(bigFont);
-	
+
 	Mix_AllocateChannels(0);
 	Mix_FreeChunk(failSnd);
 	Mix_FreeChunk(dieSnd);
@@ -1493,9 +1493,9 @@ void clean_up()
 	Mix_FreeMusic(badFinaleMusic1);
 	Mix_FreeMusic(badFinaleMusic2);
 	Mix_CloseAudio();
-	
+
     TTF_Quit();
-	
+
     SDL_Quit();
 }
 
@@ -1503,16 +1503,16 @@ void clean_up()
 bool getKeyboardType()
 {
 	short int x = 0, y = 0, kbType = 0;
-	
+
 	while (true)
 	{
 		apply_surface(0, 0, keyboardPrompt, screen);
 		apply_surface(0, 0, keyboardTypes[kbType], screen);
 		SDL_Flip(screen);
-		
+
 		while (!SDL_PollEvent(&event))
 		{}
-		
+
 		if (event.type == SDL_MOUSEBUTTONDOWN)
 		{
 			x = event.motion.x;
@@ -1550,7 +1550,7 @@ bool getKeyboardType()
             break;
         }
 	}
-	
+
 	if (kbType == 1)
 	{
 		scReview[4] = NULL;
@@ -1558,24 +1558,24 @@ bool getKeyboardType()
 		scReview[7] = NULL;
 		scIcon[32] = NULL;
 		scIcon[33] = NULL;
-		
+
 		scReview[4] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/scReview5b.png");
 		scReview[5] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/scReview6b.png");
 		scReview[7] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/scReview7bB.png");
 		scIcon[32] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/ctrl_period.png");
 		scIcon[33] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/ctrl_comma.png");
-		
+
 		shortcut_codes[0][32] = 1;
 		shortcut_codes[1][32] = 46;
 		shortcut_codes[0][33] = 1;
 		shortcut_codes[1][33] = 44;
 	}
-	
+
 	if ((scReview[4] == NULL) || (scReview[5] == NULL) || (scReview[7] == NULL) || (scIcon[32] == NULL) || (scIcon[33] == NULL))
 	{
 		return false;
 	}
-	
+
 	return true;
 }
 
@@ -1583,7 +1583,7 @@ bool getKeyboardType()
 void showGameData()
 {
 	unsigned int remain;
-	
+
 	if (stopClock)
 	{
 		remain = tmpRemain;
@@ -1597,22 +1597,22 @@ void showGameData()
 	sLives.str("");
 	sChain.str("");
 	sRemaining.str("");
-	
+
 	sScore << "Score: " << score;
 	sLives << "Lives: " << lives;
 	sChain << "Chain: " << chain;
 	sRemaining << "Time left: " << remain;
-	
+
 	scoreTxt = TTF_RenderText_Solid(smallFont, sScore.str().c_str(), textColor);
 	livesTxt = TTF_RenderText_Solid(smallFont, sLives.str().c_str(), textColor);
 	chainTxt = TTF_RenderText_Solid(smallFont, sChain.str().c_str(), textColor);
 	timeTxt = TTF_RenderText_Solid(smallFont, sRemaining.str().c_str(), textColor);
-	
+
 	apply_surface(10, 3, timeTxt, screen);
 	apply_surface(10, 28, scoreTxt, screen);
 	apply_surface(10, 53, livesTxt, screen);
 	apply_surface(10, 78, chainTxt, screen);
-	
+
 	if (csAvail)
 	{
 		apply_surface(160, -10, csPowerup, screen);
@@ -1630,66 +1630,66 @@ void showGameData()
 
 // shows info at the end of a round
 void endGameData(unsigned short int bc)
-{	
+{
 	sScore.str("");
 	sChain.str("");
 	sLvlEndTxt1.str("");
 	sLvlEndTxt2.str("");
-	
+
 	sScore << "Score: " << score;
 	sChain << "Best chain: " << bc;
-	
+
 	if (lives < 1)
 	{
 		sLvlEndTxt1 << "    Level " << levelNum + 1 << " failed";
 		sLvlEndTxt2 << "                          Press [space] to try Level " << levelNum + 1 << " again";
 	}
-	else 
+	else
 	{
 		if (roundPart == 0)
 		{
 			sLvlEndTxt1 << "        Success!";
 			sLvlEndTxt2 << "Press [space] to continue on to the mouse-click modifier round";
 		}
-		else 
+		else
 		{
 			sLvlEndTxt1 << "  Level " << levelNum + 1 << " complete!";
 			sLvlEndTxt2 << "                        Press [space] to continue on to Level " << levelNum + 2;
 		}
 	}
-	
+
 	finalTxt = TTF_RenderText_Solid(bigFont, sLvlEndTxt1.str().c_str(), textColor);
 	scoreTxt = TTF_RenderText_Solid(font, sScore.str().c_str(), textColor);
 	chainTxt = TTF_RenderText_Solid(font, sChain.str().c_str(), textColor);
 	continueTxt = TTF_RenderText_Solid(font, sLvlEndTxt2.str().c_str(), textColor);
-	
+
 	if (roundPart == 0)
 	{
 		apply_surface(0, 0, scBackground[0], screen);
 	}
-	else 
+	else
 	{
 		apply_surface(0, 0, background[0][0], screen);
 	}
-	
+
 	apply_surface(440, 300, finalTxt, screen);
 	apply_surface(550, 355, chainTxt, screen);
 	apply_surface(565, 385, scoreTxt, screen);
 	apply_surface(160, 500, continueTxt, screen);
-	
+
 	if ((levelNum == 6) && (roundPart == 1) && (lives > 0))
 	{
 		apply_surface(0, 0, endScreen, screen);
 		apply_surface(120, 410, chainTxt, screen);
 		apply_surface(120, 440, scoreTxt, screen);
 	}
-	
+
 	SDL_Flip(screen);
-	
+
 	SDL_EventState(SDL_KEYDOWN, SDL_IGNORE);
 	SDL_Delay(250);
 	SDL_EventState(SDL_KEYDOWN, SDL_ENABLE);
-	
+
 	while (true)
 	{
 		if (SDL_PollEvent(&event))
@@ -1707,12 +1707,12 @@ void showBG()
 {
 	short int bgCode1 = 0;
 	short int bgCode2 = 0;
-	
+
 	if (stopClock)
 	{
 		bgCode1 = 1;
 	}
-    
+
     if (yayScreen)
     {
         if ((SDL_GetTicks() - yayTime) > 500)
@@ -1724,7 +1724,7 @@ void showBG()
             bgCode2 = 1;
         }
     }
-    
+
     if (booScreen)
     {
         if ((SDL_GetTicks() - booTime) > 500)
@@ -1736,7 +1736,7 @@ void showBG()
             bgCode2 = 2;
         }
     }
-    
+
     if (dieScreen)
     {
         if ((SDL_GetTicks() - dieTime) > 500)
@@ -1748,7 +1748,7 @@ void showBG()
             bgCode2 = 3;
         }
     }
-		
+
 	apply_surface(0, 0, background[bgCode1][bgCode2], screen);
 }
 
@@ -1756,7 +1756,7 @@ void showBG()
 void showShortcutBG()
 {
 	short int bgCode = 0;
-    
+
     if (dieScreen)
     {
         if ((SDL_GetTicks() - dieTime) > 500)
@@ -1768,13 +1768,13 @@ void showShortcutBG()
             bgCode = 1;
         }
     }
-	
+
 	if (stopClock)
 	{
 		bgCode = 2;
 		dieScreen = false;
 	}
-	
+
 	apply_surface(0, 0, scBackground[bgCode], screen);
 }
 
@@ -1783,13 +1783,13 @@ void scReviewScreen()
 {
 	bool keepLooping = true;
 	short int reviewNum = 6;
-	
+
 	Mix_PlayMusic(reviewMusic1, -1);
-	
+
 	apply_surface(0, 0, scBackground[0], screen);
 	apply_surface(0, 0, scReview[levelNum], screen);
 	SDL_Flip(screen);
-	
+
 	SDL_EventState(SDL_KEYDOWN, SDL_IGNORE);
 	SDL_Delay(500);
 	SDL_EventState(SDL_KEYDOWN, SDL_ENABLE);
@@ -1807,14 +1807,14 @@ void scReviewScreen()
 			}
 		}
 	}
-	else 
-	{		
+	else
+	{
 		while (keepLooping)
 		{
 			apply_surface(0, 0, scBackground[0], screen);
 			apply_surface(0, 0, scReview[reviewNum], screen);
 			SDL_Flip(screen);
-			
+
 			while (true)
 			{
 				if (SDL_PollEvent(&event))
@@ -1862,13 +1862,13 @@ void reviewScreen()
 {
 	apply_surface(0, 0, review[levelNum], screen);
 	SDL_Flip(screen);
-	
+
 	Mix_PlayMusic(reviewMusic2, -1);
-	
+
 	SDL_EventState(SDL_KEYDOWN, SDL_IGNORE);
 	SDL_Delay(500);
 	SDL_EventState(SDL_KEYDOWN, SDL_ENABLE);
-	
+
 	while (true)
 	{
 		if (SDL_PollEvent(&event))
@@ -1912,34 +1912,34 @@ short int getLevel()
 
 // increases difficulty. is called every time you get a correct answer in the mouse-click modifier round.
 void increaseDiff()
-{	
+{
 	if (chain < 9)
 	{
 		score += (10 + (chain * 5));
 	}
-	else 
+	else
 	{
 		score += 50;
 	}
 	chain++;
-	
+
 	if ((gr > GR_CAP_LEVELS[levelNum]) && (!stopClock))
 	{
 		gr -= GR_LEVELS[levelNum];
 	}
-	
+
 	if ((s < 6) && (!stopClock))
 	{
 		s += SPEED_LEVELS[levelNum];
 	}
-	
+
 	if ((score >= (scLog * 1000)) && (oldScore < (scLog * 1000)))
 	{
 		lives++;
 		scLog++;
 		Mix_PlayChannel(-1, oneUpSnd2, 0);
 	}
-	else 
+	else
 	{
 		Mix_PlayChannel(-1, succeedSnd, 0);
 	}
@@ -1948,24 +1948,24 @@ void increaseDiff()
 
 // called every time you get a correct answer in the keyboard shortcut round.
 void scScore()
-{	
+{
 	if (chain < 9)
 	{
 		score += (10 + (chain * 5));
 	}
-	else 
+	else
 	{
 		score += 50;
 	}
 	chain++;
-	
+
 	if ((score >= (scLog * 1000)) && (oldScore < (scLog * 1000)))
 	{
 		lives++;
 		scLog++;
 		Mix_PlayChannel(-1, oneUpSnd1, 0);
 	}
-	else 
+	else
 	{
 		Mix_PlayChannel(-1, scGoodSound, 0);
 	}
@@ -1976,7 +1976,7 @@ void scScore()
 void addShortcutObject(short int reps)
 {
 	short int i, col, scNum;
-	
+
 	for (i = 0; i < reps; i++)
 	{
 		col = rand() % 4;
@@ -1986,13 +1986,13 @@ void addShortcutObject(short int reps)
 		{
 			scColumns[col].push_back(Shortcuts(scNum, shortcut_codes[0][scNum], shortcut_codes[1][scNum], col));
 		}
-		else 
+		else
 		{
 			if (scColumns[col][(scColumns[col].size()) - 1].m_Row == 0)
 			{
 				i--;
 			}
-			else 
+			else
 			{
 				scColumns[col].push_back(Shortcuts(scNum, shortcut_codes[0][scNum], shortcut_codes[1][scNum], col));
 			}
@@ -2004,7 +2004,7 @@ void addShortcutObject(short int reps)
 void showShortcutIcons()
 {
 	short int x, i;
-	
+
 	for (x = 0; x < 4; x++)
 	{
 		for (i = ((scColumns[x].size()) - 1); i >= 0; i--)
@@ -2019,7 +2019,7 @@ short int dropShortcutIcons()
 {
 	short int x, i;
 	short int lostLives = 0;
-	
+
 	for (x = 0; x < 4; x++)
 	{
 		for (i = ((scColumns[x].size()) - 1); i >= 0; i--)
@@ -2033,7 +2033,7 @@ short int dropShortcutIcons()
 			{
 				break;
 			}
-			else 
+			else
 			{
 				if ((rand() % SHORTCUT_CS_CHANCE[levelNum]) == 1)
 				{
@@ -2048,7 +2048,7 @@ short int dropShortcutIcons()
 			}
 		}
 	}
-	
+
 	return lostLives;
 }
 
@@ -2093,12 +2093,12 @@ short int checkShortcut(short int column)
 			}
 			scColumns[column].erase(scColumns[column].begin());
 		}
-		else 
+		else
 		{
 			status = -1;
 		}
 	}
-	
+
 	return status;
 }
 
@@ -2147,7 +2147,7 @@ Uint32 openPauseMenu()
 {
     Uint32 current = SDL_GetTicks();
     short int x, y, menuType = 0;
-    
+
     if (stopClock)
     {
         Mix_Pause(3);
@@ -2156,21 +2156,21 @@ Uint32 openPauseMenu()
     {
         Mix_PauseMusic();
     }
-    
+
     SDL_EventState(SDL_KEYDOWN, SDL_IGNORE);
     SDL_EventState(SDL_MOUSEBUTTONDOWN, SDL_IGNORE);
 	SDL_Delay(250);
 	SDL_EventState(SDL_KEYDOWN, SDL_ENABLE);
     SDL_EventState(SDL_MOUSEBUTTONDOWN, SDL_ENABLE);
-    
+
     while (true)
     {
         apply_surface(0, 0, pauseMenu[menuType], screen);
         SDL_Flip(screen);
-        
+
         while (!SDL_PollEvent(&event))
         {}
-        
+
         if (event.type == SDL_KEYDOWN)
         {
             if ((event.key.keysym.sym == SDLK_RETURN) || (event.key.keysym.sym == SDLK_KP_ENTER))
@@ -2190,13 +2190,13 @@ Uint32 openPauseMenu()
         {
             x = event.motion.x;
 			y = event.motion.y;
-            
+
             if ((x > 372) && (x < 920) && (y > 272) && (y < 379))
             {
                 menuType = 0;
                 break;
             }
-            
+
             if ((x > 372) && (x < 920) && (y > 416) && (y < 523))
             {
                 menuType = 1;
@@ -2209,12 +2209,12 @@ Uint32 openPauseMenu()
             break;
         }
     }
-    
+
     if (menuType == 1)
     {
         return 0;
     }
-    
+
     if (stopClock)
     {
         Mix_Resume(3);
@@ -2231,14 +2231,14 @@ int gen_thread(void *data)
 {
 	Uint32 genRate;
 	Uint32 regenTime;
-	
+
 	SDL_Delay(50);
-	
+
 	while (roundPart == 1)
 	{
 		genRate = (rand() % 750) + gr;
 		regenTime = gRegenTime;
-		
+
 		while ((SDL_GetTicks() - regenTime) < genRate)
 		{
 			if (hk.empty())
@@ -2246,10 +2246,10 @@ int gen_thread(void *data)
 				break;
 			}
 		}
-		
+
 		respawn = true;
 		SDL_Delay(50);
 	}
-	
+
 	return 0;
 }
