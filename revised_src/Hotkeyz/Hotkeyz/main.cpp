@@ -1078,7 +1078,7 @@ int main(int argc, char** argv)
                 
                 else if (event.type == SDL_KEYDOWN)
                 {
-                    if ((event.key.keysym.sym == SDL_SCANCODE_SPACE) && (csAvail) && (!stopClock))
+                    if ((event.key.keysym.sym == SDLK_SPACE) && (csAvail) && (!stopClock))
                     {
                         // if you activate a stopClock powerup
                         csAvail = false;
@@ -1090,7 +1090,7 @@ int main(int argc, char** argv)
                         Mix_PlayChannel(3, csMusic, 0);
                     }
                     
-                    else if (event.key.keysym.sym == SDL_SCANCODE_ESCAPE)
+                    else if (event.key.keysym.sym == SDLK_ESCAPE)
                     {
                         // if you pause the game
                         pauseOffset = openPauseMenu();
@@ -1232,154 +1232,154 @@ bool init()
 
 bool load_files()
 {
-    background[0][0] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/background1_ws.png");
-    background[0][1] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/yayBG.png");
-    background[0][2] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/booBG.png");
-    background[0][3] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/dieBG.png");
-    background[1][0] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/inverted.png");
-    background[1][1] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/invertedYay.png");
-    background[1][2] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/invertedBoo.png");
-    background[1][3] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/dieBG.png");
-    ptImg[0][0] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/key1.png");
-    ptImg[0][1] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/key2.png");
-    ptImg[0][2] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/key3.png");
-    ptImg[0][3] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/key4.png");
-    ptImg[0][4] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/key5.png");
-    ptImg[0][5] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/key6.png");
-    ptImg[0][6] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/key7.png");
-    ptImg[0][7] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/key8.png");
-    ptImg[0][8] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/key9.png");
-    ptImg[0][9] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/key11.png");
-    ptImg[0][10] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/key14.png");
-    ptImg[0][11] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/key15.png");
-    ptImg[1][0] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/key1b.png");
-    ptImg[1][1] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/key2b.png");
-    ptImg[1][2] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/key3b.png");
-    ptImg[1][3] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/key4b.png");
-    ptImg[1][4] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/key5b.png");
-    ptImg[1][5] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/key6b.png");
-    ptImg[1][6] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/key7b.png");
-    ptImg[1][7] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/key8b.png");
-    ptImg[1][8] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/key9b.png");
-    ptImg[1][9] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/key10b.png");
-    ptImg[1][10] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/key11b.png");
-    ptImg[1][11] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/key12b.png");
-    csFrame = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/cs_frame.png");
-    csPowerup = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/cs_powerup.png");
-    review[0] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/review1.png");
-    review[1] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/review2.png");
-    review[2] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/review3.png");
-    review[3] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/review4.png");
-    review[4] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/review5.png");
-    review[5] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/review6.png");
-    review[6] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/review7.png");
-    scReview[0] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/scReview1.png");
-    scReview[1] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/scReview2.png");
-    scReview[2] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/scReview3.png");
-    scReview[3] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/scReview4.png");
-    scReview[4] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/scReview5.png");
-    scReview[5] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/scReview6.png");
-    scReview[6] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/scReview7a.png");
-    scReview[7] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/scReview7b.png");
-    scIcon[0] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/f1.png");
-    scIcon[1] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/f2.png");
-    scIcon[2] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/f3.png");
-    scIcon[3] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/f4.png");
-    scIcon[4] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/ctrl_R.png");
-    scIcon[5] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/ctrl_T.png");
-    scIcon[6] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/return.png");
-    scIcon[7] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/opt_return.png");
-    scIcon[8] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/ctrl6.png");
-    scIcon[9] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/ctrl7.png");
-    scIcon[10] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/ctrl_up.png");
-    scIcon[11] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/ctrl_down.png");
-    scIcon[12] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/opt_openBracket.png");
-    scIcon[13] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/opt_closeBracket.png");
-    scIcon[14] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/opt_minus.png");
-    scIcon[15] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/cmd_equal.png");
-    scIcon[16] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/cmdShft_N.png");
-    scIcon[17] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/cmd_K.png");
-    scIcon[18] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/cmd4.png");
-    scIcon[19] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/cmd5.png");
-    scIcon[20] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/cmd6.png");
-    scIcon[21] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/cmd7.png");
-    scIcon[22] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/shft1.png");
-    scIcon[23] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/shftS.png");
-    scIcon[24] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/cmdG.png");
-    scIcon[25] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/optShft_D.png");
-    scIcon[26] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/ctrl_tab.png");
-    scIcon[27] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/ctrlOpt_tab.png");
-    scIcon[28] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/ctrlP.png");
-    scIcon[29] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/ctrl_semicolon.png");
-    scIcon[30] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/tab.png");
-    scIcon[31] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/opt_tab.png");
-    scIcon[32] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/opt_KPplus.png");
-    scIcon[33] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/opt_KPminus.png");
-    scIcon[34] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/ctrlB.png");
-    scIcon[35] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/cmdH.png");
-    mic[0] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/shotgunMic.png");
-    mic[1] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/shotgunMicArrows.png");
-    scBackground[0] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/scBackground.png");
-    scBackground[1] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/scBackground_die.png");
-    scBackground[2] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/scBackground_cs.png");
-    warning = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/warning.png");
-    wrongAns = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/ban.png");
-    rightAns = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/checkmark.png");
-    scClockStop = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/scClockStop.png");
-    wave[0][0] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/wave1a.png");
-    wave[0][1] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/wave1b.png");
-    wave[0][2] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/wave1c.png");
-    wave[0][3] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/wave1d.png");
-    wave[1][0] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/wave2a.png");
-    wave[1][1] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/wave2b.png");
-    wave[1][2] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/wave2c.png");
-    wave[1][3] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/wave2d.png");
-    wave[2][0] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/wave3a.png");
-    wave[2][1] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/wave3b.png");
-    wave[2][2] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/wave3c.png");
-    wave[2][3] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/wave3d.png");
-    wave[3][0] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/wave4a.png");
-    wave[3][1] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/wave4b.png");
-    wave[3][2] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/wave4c.png");
-    wave[3][3] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/wave4d.png");
-    wave[4][0] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/wave5a.png");
-    wave[4][1] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/wave5b.png");
-    wave[4][2] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/wave5c.png");
-    wave[4][3] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/wave5d.png");
-    keyboardPrompt = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/keyboard_prompt.png");
-    keyboardTypes[0] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/fullSized.png");
-    keyboardTypes[1] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/laptop.png");
-    endScreen = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/endScreen.png");
-    pauseMenu[0] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/pause1.png");
-    pauseMenu[1] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/pause2.png");
+    background[0][0] = load_image("./Assets/background1_ws.png");
+    background[0][1] = load_image("./Assets/yayBG.png");
+    background[0][2] = load_image("./Assets/booBG.png");
+    background[0][3] = load_image("./Assets/dieBG.png");
+    background[1][0] = load_image("./Assets/inverted.png");
+    background[1][1] = load_image("./Assets/invertedYay.png");
+    background[1][2] = load_image("./Assets/invertedBoo.png");
+    background[1][3] = load_image("./Assets/dieBG.png");
+    ptImg[0][0] = load_image("./Assets/key1.png");
+    ptImg[0][1] = load_image("./Assets/key2.png");
+    ptImg[0][2] = load_image("./Assets/key3.png");
+    ptImg[0][3] = load_image("./Assets/key4.png");
+    ptImg[0][4] = load_image("./Assets/key5.png");
+    ptImg[0][5] = load_image("./Assets/key6.png");
+    ptImg[0][6] = load_image("./Assets/key7.png");
+    ptImg[0][7] = load_image("./Assets/key8.png");
+    ptImg[0][8] = load_image("./Assets/key9.png");
+    ptImg[0][9] = load_image("./Assets/key11.png");
+    ptImg[0][10] = load_image("./Assets/key14.png");
+    ptImg[0][11] = load_image("./Assets/key15.png");
+    ptImg[1][0] = load_image("./Assets/key1b.png");
+    ptImg[1][1] = load_image("./Assets/key2b.png");
+    ptImg[1][2] = load_image("./Assets/key3b.png");
+    ptImg[1][3] = load_image("./Assets/key4b.png");
+    ptImg[1][4] = load_image("./Assets/key5b.png");
+    ptImg[1][5] = load_image("./Assets/key6b.png");
+    ptImg[1][6] = load_image("./Assets/key7b.png");
+    ptImg[1][7] = load_image("./Assets/key8b.png");
+    ptImg[1][8] = load_image("./Assets/key9b.png");
+    ptImg[1][9] = load_image("./Assets/key10b.png");
+    ptImg[1][10] = load_image("./Assets/key11b.png");
+    ptImg[1][11] = load_image("./Assets/key12b.png");
+    csFrame = load_image("./Assets/cs_frame.png");
+    csPowerup = load_image("./Assets/cs_powerup.png");
+    review[0] = load_image("./Assets/review1.png");
+    review[1] = load_image("./Assets/review2.png");
+    review[2] = load_image("./Assets/review3.png");
+    review[3] = load_image("./Assets/review4.png");
+    review[4] = load_image("./Assets/review5.png");
+    review[5] = load_image("./Assets/review6.png");
+    review[6] = load_image("./Assets/review7.png");
+    scReview[0] = load_image("./Assets/scReview1.png");
+    scReview[1] = load_image("./Assets/scReview2.png");
+    scReview[2] = load_image("./Assets/scReview3.png");
+    scReview[3] = load_image("./Assets/scReview4.png");
+    scReview[4] = load_image("./Assets/scReview5.png");
+    scReview[5] = load_image("./Assets/scReview6.png");
+    scReview[6] = load_image("./Assets/scReview7a.png");
+    scReview[7] = load_image("./Assets/scReview7b.png");
+    scIcon[0] = load_image("./Assets/f1.png");
+    scIcon[1] = load_image("./Assets/f2.png");
+    scIcon[2] = load_image("./Assets/f3.png");
+    scIcon[3] = load_image("./Assets/f4.png");
+    scIcon[4] = load_image("./Assets/ctrl_R.png");
+    scIcon[5] = load_image("./Assets/ctrl_T.png");
+    scIcon[6] = load_image("./Assets/return.png");
+    scIcon[7] = load_image("./Assets/opt_return.png");
+    scIcon[8] = load_image("./Assets/ctrl6.png");
+    scIcon[9] = load_image("./Assets/ctrl7.png");
+    scIcon[10] = load_image("./Assets/ctrl_up.png");
+    scIcon[11] = load_image("./Assets/ctrl_down.png");
+    scIcon[12] = load_image("./Assets/opt_openBracket.png");
+    scIcon[13] = load_image("./Assets/opt_closeBracket.png");
+    scIcon[14] = load_image("./Assets/opt_minus.png");
+    scIcon[15] = load_image("./Assets/cmd_equal.png");
+    scIcon[16] = load_image("./Assets/cmdShft_N.png");
+    scIcon[17] = load_image("./Assets/cmd_K.png");
+    scIcon[18] = load_image("./Assets/cmd4.png");
+    scIcon[19] = load_image("./Assets/cmd5.png");
+    scIcon[20] = load_image("./Assets/cmd6.png");
+    scIcon[21] = load_image("./Assets/cmd7.png");
+    scIcon[22] = load_image("./Assets/shft1.png");
+    scIcon[23] = load_image("./Assets/shftS.png");
+    scIcon[24] = load_image("./Assets/cmdG.png");
+    scIcon[25] = load_image("./Assets/optShft_D.png");
+    scIcon[26] = load_image("./Assets/ctrl_tab.png");
+    scIcon[27] = load_image("./Assets/ctrlOpt_tab.png");
+    scIcon[28] = load_image("./Assets/ctrlP.png");
+    scIcon[29] = load_image("./Assets/ctrl_semicolon.png");
+    scIcon[30] = load_image("./Assets/tab.png");
+    scIcon[31] = load_image("./Assets/opt_tab.png");
+    scIcon[32] = load_image("./Assets/opt_KPplus.png");
+    scIcon[33] = load_image("./Assets/opt_KPminus.png");
+    scIcon[34] = load_image("./Assets/ctrlB.png");
+    scIcon[35] = load_image("./Assets/cmdH.png");
+    mic[0] = load_image("./Assets/shotgunMic.png");
+    mic[1] = load_image("./Assets/shotgunMicArrows.png");
+    scBackground[0] = load_image("./Assets/scBackground.png");
+    scBackground[1] = load_image("./Assets/scBackground_die.png");
+    scBackground[2] = load_image("./Assets/scBackground_cs.png");
+    warning = load_image("./Assets/warning.png");
+    wrongAns = load_image("./Assets/ban.png");
+    rightAns = load_image("./Assets/checkmark.png");
+    scClockStop = load_image("./Assets/scClockStop.png");
+    wave[0][0] = load_image("./Assets/wave1a.png");
+    wave[0][1] = load_image("./Assets/wave1b.png");
+    wave[0][2] = load_image("./Assets/wave1c.png");
+    wave[0][3] = load_image("./Assets/wave1d.png");
+    wave[1][0] = load_image("./Assets/wave2a.png");
+    wave[1][1] = load_image("./Assets/wave2b.png");
+    wave[1][2] = load_image("./Assets/wave2c.png");
+    wave[1][3] = load_image("./Assets/wave2d.png");
+    wave[2][0] = load_image("./Assets/wave3a.png");
+    wave[2][1] = load_image("./Assets/wave3b.png");
+    wave[2][2] = load_image("./Assets/wave3c.png");
+    wave[2][3] = load_image("./Assets/wave3d.png");
+    wave[3][0] = load_image("./Assets/wave4a.png");
+    wave[3][1] = load_image("./Assets/wave4b.png");
+    wave[3][2] = load_image("./Assets/wave4c.png");
+    wave[3][3] = load_image("./Assets/wave4d.png");
+    wave[4][0] = load_image("./Assets/wave5a.png");
+    wave[4][1] = load_image("./Assets/wave5b.png");
+    wave[4][2] = load_image("./Assets/wave5c.png");
+    wave[4][3] = load_image("./Assets/wave5d.png");
+    keyboardPrompt = load_image("./Assets/keyboard_prompt.png");
+    keyboardTypes[0] = load_image("./Assets/fullSized.png");
+    keyboardTypes[1] = load_image("./Assets/laptop.png");
+    endScreen = load_image("./Assets/endScreen.png");
+    pauseMenu[0] = load_image("./Assets/pause1.png");
+    pauseMenu[1] = load_image("./Assets/pause2.png");
     
-    font = TTF_OpenFont("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/Arial Bold.ttf", 32);
-    smallFont = TTF_OpenFont("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/Arial.ttf", 26);
-    bigFont = TTF_OpenFont("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/Arial Bold.ttf", 50);
+    font = TTF_OpenFont("./Assets/Arial Bold.ttf", 32);
+    smallFont = TTF_OpenFont("./Assets/Arial.ttf", 26);
+    bigFont = TTF_OpenFont("./Assets/Arial Bold.ttf", 50);
     
-    failSnd = Mix_LoadWAV("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/failB.wav");
-    dieSnd = Mix_LoadWAV("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/deathSound.wav");
-    succeedSnd = Mix_LoadWAV("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/succeed2.wav");
-    csMusic = Mix_LoadWAV("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/csMusicA.wav");
-    scStartSound[0] = Mix_LoadWAV("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/startSound.wav");
-    scStartSound[1] = Mix_LoadWAV("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/startSound2.wav");
-    scGoodSound = Mix_LoadWAV("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/scGoodSound.wav");
-    scBadSound = Mix_LoadWAV("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/scBadSound.wav");
-    oneUpSnd2 = Mix_LoadWAV("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/oneUp2a.wav");
-    oneUpSnd1 = Mix_LoadWAV("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/oneUp1.wav");
+    failSnd = Mix_LoadWAV("./Assets/failB.wav");
+    dieSnd = Mix_LoadWAV("./Assets/deathSound.wav");
+    succeedSnd = Mix_LoadWAV("./Assets/succeed2.wav");
+    csMusic = Mix_LoadWAV("./Assets/csMusicA.wav");
+    scStartSound[0] = Mix_LoadWAV("./Assets/startSound.wav");
+    scStartSound[1] = Mix_LoadWAV("./Assets/startSound2.wav");
+    scGoodSound = Mix_LoadWAV("./Assets/scGoodSound.wav");
+    scBadSound = Mix_LoadWAV("./Assets/scBadSound.wav");
+    oneUpSnd2 = Mix_LoadWAV("./Assets/oneUp2a.wav");
+    oneUpSnd1 = Mix_LoadWAV("./Assets/oneUp1.wav");
     
-    BGmusic2 = Mix_LoadMUS("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/BGmusic2a.wav");
-    BGmusic1[0] = Mix_LoadMUS("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/BGmusic1.wav");
-    BGmusic1[1] = Mix_LoadMUS("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/BGmusic1_faster.wav");
-    BGmusic1[2] = Mix_LoadMUS("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/BGmusic1_fastest.wav");
-    finaleMusic1[0] = Mix_LoadMUS("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/finale1b.wav");
-    finaleMusic1[1] = Mix_LoadMUS("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/finale1_faster.wav");
-    finaleMusic1[2] = Mix_LoadMUS("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/finaleMusic1_fastest.wav");
-    finaleMusic2 = Mix_LoadMUS("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/finale2.wav");
-    reviewMusic2 = Mix_LoadMUS("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/reviewMusic2.wav");
-    reviewMusic1 = Mix_LoadMUS("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/reviewMusic1.wav");
-    badFinaleMusic1 = Mix_LoadMUS("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/badFinale1.wav");
-    badFinaleMusic2 = Mix_LoadMUS("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/badFinale2.wav");
+    BGmusic2 = Mix_LoadMUS("./Assets/BGmusic2a.wav");
+    BGmusic1[0] = Mix_LoadMUS("./Assets/BGmusic1.wav");
+    BGmusic1[1] = Mix_LoadMUS("./Assets/BGmusic1_faster.wav");
+    BGmusic1[2] = Mix_LoadMUS("./Assets/BGmusic1_fastest.wav");
+    finaleMusic1[0] = Mix_LoadMUS("./Assets/finale1b.wav");
+    finaleMusic1[1] = Mix_LoadMUS("./Assets/finale1_faster.wav");
+    finaleMusic1[2] = Mix_LoadMUS("./Assets/finaleMusic1_fastest.wav");
+    finaleMusic2 = Mix_LoadMUS("./Assets/finale2.wav");
+    reviewMusic2 = Mix_LoadMUS("./Assets/reviewMusic2.wav");
+    reviewMusic1 = Mix_LoadMUS("./Assets/reviewMusic1.wav");
+    badFinaleMusic1 = Mix_LoadMUS("./Assets/badFinale1.wav");
+    badFinaleMusic2 = Mix_LoadMUS("./Assets/badFinale2.wav");
     
     if ((background[0][0] == NULL) || (background[1][0] == NULL) || (ptImg[0][0] == NULL) || (ptImg[1][0] == NULL) || (csFrame == NULL) || (csPowerup == NULL))
     {
@@ -1551,15 +1551,15 @@ bool getKeyboardType()
         }
         else if (event.type == SDL_KEYDOWN)
         {
-            if (event.key.keysym.sym == SDL_SCANCODE_UP)
+            if (event.key.keysym.sym == SDLK_UP)
             {
                 kbType = 0;
             }
-            else if (event.key.keysym.sym == SDL_SCANCODE_DOWN)
+            else if (event.key.keysym.sym == SDLK_DOWN)
             {
                 kbType = 1;
             }
-            else if ((event.key.keysym.sym == SDL_SCANCODE_RETURN) || (event.key.keysym.sym == SDL_SCANCODE_KP_ENTER))
+            else if ((event.key.keysym.sym == SDLK_RETURN) || (event.key.keysym.sym == SDLK_KP_ENTER))
             {
                 break;
             }
@@ -1578,11 +1578,11 @@ bool getKeyboardType()
         scIcon[32] = NULL;
         scIcon[33] = NULL;
         
-        scReview[4] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/scReview5b.png");
-        scReview[5] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/scReview6b.png");
-        scReview[7] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/scReview7bB.png");
-        scIcon[32] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/ctrl_period.png");
-        scIcon[33] = load_image("/Users/jbell/Documents/KeyPolling + Threads/build/Debug/ctrl_comma.png");
+        scReview[4] = load_image("./Assets/scReview5b.png");
+        scReview[5] = load_image("./Assets/scReview6b.png");
+        scReview[7] = load_image("./Assets/scReview7bB.png");
+        scIcon[32] = load_image("./Assets/ctrl_period.png");
+        scIcon[33] = load_image("./Assets/ctrl_comma.png");
         
         shortcut_codes[0][32] = 1;
         shortcut_codes[1][32] = 46;
@@ -1713,7 +1713,7 @@ void endGameData(unsigned short int bc)
     {
         if (SDL_PollEvent(&event))
         {
-            if ((event.key.keysym.sym == SDL_SCANCODE_SPACE) || (event.type == SDL_QUIT))
+            if ((event.key.keysym.sym == SDLK_SPACE) || (event.type == SDL_QUIT))
             {
                 break;
             }
@@ -1819,7 +1819,7 @@ void scReviewScreen()
         {
             if (SDL_PollEvent(&event))
             {
-                if ((event.key.keysym.sym == SDL_SCANCODE_SPACE) || (event.type == SDL_QUIT))
+                if ((event.key.keysym.sym == SDLK_SPACE) || (event.type == SDL_QUIT))
                 {
                     break;
                 }
@@ -1840,7 +1840,7 @@ void scReviewScreen()
                 {
                     if (event.type == SDL_KEYDOWN)
                     {
-                        if (event.key.keysym.sym == SDL_SCANCODE_LEFT)
+                        if (event.key.keysym.sym == SDLK_LEFT)
                         {
                             reviewNum--;
                             if (reviewNum < 6)
@@ -1849,7 +1849,7 @@ void scReviewScreen()
                             }
                             break;
                         }
-                        if (event.key.keysym.sym == SDL_SCANCODE_RIGHT)
+                        if (event.key.keysym.sym == SDLK_RIGHT)
                         {
                             reviewNum++;
                             if (reviewNum > 7)
@@ -1858,7 +1858,7 @@ void scReviewScreen()
                             }
                             break;
                         }
-                        if (event.key.keysym.sym == SDL_SCANCODE_SPACE)
+                        if (event.key.keysym.sym == SDLK_SPACE)
                         {
                             keepLooping = false;
                             break;
@@ -1892,7 +1892,7 @@ void reviewScreen()
     {
         if (SDL_PollEvent(&event))
         {
-            if ((event.key.keysym.sym == SDL_SCANCODE_SPACE) || (event.type == SDL_QUIT))
+            if ((event.key.keysym.sym == SDLK_SPACE) || (event.type == SDL_QUIT))
             {
                 break;
             }
@@ -2126,14 +2126,14 @@ void moveMic(short int& rMicPos)
 {
     switch (event.key.keysym.sym)
     {
-        case SDL_SCANCODE_LEFT:
+        case SDLK_LEFT:
             rMicPos--;
             if (rMicPos < 0)
             {
                 rMicPos = 3;
             }
             break;
-        case SDL_SCANCODE_RIGHT:
+        case SDLK_RIGHT:
             rMicPos++;
             if (rMicPos > 3)
             {
@@ -2192,15 +2192,15 @@ Uint32 openPauseMenu()
         
         if (event.type == SDL_KEYDOWN)
         {
-            if ((event.key.keysym.sym == SDL_SCANCODE_RETURN) || (event.key.keysym.sym == SDL_SCANCODE_KP_ENTER))
+            if ((event.key.keysym.sym == SDLK_RETURN) || (event.key.keysym.sym == SDLK_KP_ENTER))
             {
                 break;
             }
-            else if (event.key.keysym.sym == SDL_SCANCODE_UP)
+            else if (event.key.keysym.sym == SDLK_UP)
             {
                 menuType = 0;
             }
-            else if (event.key.keysym.sym == SDL_SCANCODE_DOWN)
+            else if (event.key.keysym.sym == SDLK_DOWN)
             {
                 menuType = 1;
             }
