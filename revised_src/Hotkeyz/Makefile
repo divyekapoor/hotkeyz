@@ -1,4 +1,4 @@
-all: hotkeyz.debug hotkeyz.release
+all: hotkeyz.debug hotkeyz
 
 hotkeyz.debug:
 	clang -g ./Hotkeyz/main.cpp -framework SDL2 -framework SDL2_image -framework SDL2_ttf -framework SDL2_mixer -F./Frameworks -lc++ -rpath @executable_path/Frameworks -o $@
