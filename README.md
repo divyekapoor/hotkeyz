@@ -12,7 +12,7 @@ The project should work out of the box (except for Code signing):
     $ cd hotkeyz/
     $ open app_src/Hotkeyz/Hotkeyz.xcodeproj
 
-To make code signing work, you will need to sign up for an Apple Developer account and use your personal credentials in the General Settings. Look at the Identity and Signing sections and make sure they use your credentials. Please also update the bundle identifier if you're planning to work
+To make code signing work, you will need to sign up for an Apple Developer account and use your personal credentials in the General Settings. Look at the Identity and Signing sections and make sure they use your credentials. Please also update the bundle identifier if you're planning to submit to the app store.
 
 # How to run the code
 
