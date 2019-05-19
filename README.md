@@ -12,7 +12,11 @@ The project should work out of the box (except for Code signing):
     $ cd hotkeyz/
     $ open app_src/Hotkeyz/Hotkeyz.xcodeproj
 
-To make code signing work, you will need to sign up for an Apple Developer account and use your personal credentials in the General Settings. Look at the Identity and Signing sections and make sure they use your credentials.
+To make code signing work, you will need to sign up for an Apple Developer account and use your personal credentials in the General Settings. Look at the Identity and Signing sections and make sure they use your credentials. Please also update the bundle identifier if you're planning to work
+
+# How to run the code
+
+Just click on the `play` button and that should trigger a debug release of the binary.
 
 # How to create the .app file
 
@@ -45,6 +49,13 @@ Some common failures that can easily be fixed:
 1. Resources not loading: Check if the Copy Bundle Resources is correctly configured in the Build Phases.
 1. Debugging App contents: Finder -> Right click -> Show contents
 1. dyld: Image not found: this means that the framework files are not being copied into the .app file. The framework files need to be included into Embedded Binaries and the Link Libraries and Frameworks section. Please also make sure the `Runpath Search Paths` has the entry `@executable_path/../Frameworks`.
+
+# Caveats
+
+The code seems to have a few inherent issues that show up on the XCode console
+on a debug run but do not affect the running of the binary. Jeremy is advised
+to investigate and fix issues. These issues are out of scope for the project to
+fix.
 
 # License
 
