@@ -7,34 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FD89F86022913D290012EC4E /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD89F85C22913D280012EC4E /* SDL2_ttf.framework */; };
-		FD89F86122913D290012EC4E /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD89F85D22913D290012EC4E /* SDL2_mixer.framework */; };
-		FD89F86222913D290012EC4E /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD89F85E22913D290012EC4E /* SDL2.framework */; };
-		FD89F86322913D290012EC4E /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD89F85F22913D290012EC4E /* SDL2_image.framework */; };
 		FD89F86722913F2A0012EC4E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD89F86622913F2A0012EC4E /* main.cpp */; };
+		FDC7269422915C1300976335 /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDC7269022915C1300976335 /* SDL2_ttf.framework */; };
+		FDC7269522915C1300976335 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDC7269122915C1300976335 /* SDL2.framework */; };
+		FDC7269622915C1300976335 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDC7269222915C1300976335 /* SDL2_image.framework */; };
+		FDC7269722915C1300976335 /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDC7269322915C1300976335 /* SDL2_mixer.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		FD89F84322913AAF0012EC4E /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = usr/share/man/man1;
-			dstSubfolderSpec = 7;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 10;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		FD89F84522913AAF0012EC4E /* Hotkeyz */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Hotkeyz; sourceTree = BUILT_PRODUCTS_DIR; };
-		FD89F85C22913D280012EC4E /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2_ttf.framework; sourceTree = "<group>"; };
-		FD89F85D22913D290012EC4E /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2_mixer.framework; sourceTree = "<group>"; };
-		FD89F85E22913D290012EC4E /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2.framework; sourceTree = "<group>"; };
-		FD89F85F22913D290012EC4E /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2_image.framework; sourceTree = "<group>"; };
 		FD89F86622913F2A0012EC4E /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		FD89F904229149DC0012EC4E /* Assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Assets; sourceTree = "<group>"; };
 		FD89F90522914A070012EC4E /* Frameworks */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Frameworks; sourceTree = "<group>"; };
+		FD89F91A229157CB0012EC4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FD89F92322915B5D0012EC4E /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
+		FDC7269022915C1300976335 /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_ttf.framework; path = Frameworks/SDL2_ttf.framework; sourceTree = "<group>"; };
+		FDC7269122915C1300976335 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = Frameworks/SDL2.framework; sourceTree = "<group>"; };
+		FDC7269222915C1300976335 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = Frameworks/SDL2_image.framework; sourceTree = "<group>"; };
+		FDC7269322915C1300976335 /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_mixer.framework; path = Frameworks/SDL2_mixer.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,10 +43,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FD89F86222913D290012EC4E /* SDL2.framework in Frameworks */,
-				FD89F86022913D290012EC4E /* SDL2_ttf.framework in Frameworks */,
-				FD89F86122913D290012EC4E /* SDL2_mixer.framework in Frameworks */,
-				FD89F86322913D290012EC4E /* SDL2_image.framework in Frameworks */,
+				FDC7269422915C1300976335 /* SDL2_ttf.framework in Frameworks */,
+				FDC7269522915C1300976335 /* SDL2.framework in Frameworks */,
+				FDC7269622915C1300976335 /* SDL2_image.framework in Frameworks */,
+				FDC7269722915C1300976335 /* SDL2_mixer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,8 +56,9 @@
 		FD89F83C22913AAF0012EC4E = {
 			isa = PBXGroup;
 			children = (
+				FD89F92322915B5D0012EC4E /* Resources */,
+				FD89F919229157CB0012EC4E /* HotkeyzBundle */,
 				FD89F90522914A070012EC4E /* Frameworks */,
-				FD89F904229149DC0012EC4E /* Assets */,
 				FD89F84722913AAF0012EC4E /* Hotkeyz */,
 				FD89F84622913AAF0012EC4E /* Products */,
 				FD89F84F22913B8E0012EC4E /* Frameworks */,
@@ -82,12 +84,20 @@
 		FD89F84F22913B8E0012EC4E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FD89F85F22913D290012EC4E /* SDL2_image.framework */,
-				FD89F85D22913D290012EC4E /* SDL2_mixer.framework */,
-				FD89F85C22913D280012EC4E /* SDL2_ttf.framework */,
-				FD89F85E22913D290012EC4E /* SDL2.framework */,
+				FDC7269222915C1300976335 /* SDL2_image.framework */,
+				FDC7269322915C1300976335 /* SDL2_mixer.framework */,
+				FDC7269022915C1300976335 /* SDL2_ttf.framework */,
+				FDC7269122915C1300976335 /* SDL2.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FD89F919229157CB0012EC4E /* HotkeyzBundle */ = {
+			isa = PBXGroup;
+			children = (
+				FD89F91A229157CB0012EC4E /* Info.plist */,
+			);
+			path = HotkeyzBundle;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -117,7 +127,7 @@
 			isa = PBXProject;
 			attributes = {
 				KnownAssetTags = (
-					Assets,
+					New,
 				);
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Divye Kapoor";
@@ -191,9 +201,11 @@
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEPLOYMENT_POSTPROCESSING = NO;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "@executable_path/Frameworks";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -208,7 +220,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				"LD_RUNPATH_SEARCH_PATHS[arch=*]" = "@executable_path";
+				"LD_RUNPATH_SEARCH_PATHS[arch=*]" = "@executable_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -252,9 +264,11 @@
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEPLOYMENT_POSTPROCESSING = NO;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "@executable_path/Frameworks";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -263,7 +277,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				"LD_RUNPATH_SEARCH_PATHS[arch=*]" = "@executable_path";
+				"LD_RUNPATH_SEARCH_PATHS[arch=*]" = "@executable_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -278,6 +292,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -290,6 +305,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
