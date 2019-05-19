@@ -9,7 +9,7 @@ Resources are all located in the resources folder (.wav, fonts, .pngs etc.)
 The project should work out of the box (except for Code signing):
 
     $ git clone https://github.com/divyekapoor/hotkeyz
-    $ cd hotkeyz/app_src
+    $ cd hotkeyz/
     $ open app_src/Hotkeyz/Hotkeyz.xcodeproj
 
 To make code signing work, you will need to sign up for an Apple Developer account and use your personal credentials in the settings.
