@@ -7,6 +7,7 @@ In `app_src` there is an XCode project that you can open and use to build, run a
 Resources are all located in the resources folder (.wav, fonts, .pngs etc.)
 
 The project should work out of the box (except for Code signing):
+
     $ git clone https://github.com/divyekapoor/hotkeyz
     $ cd hotkeyz/app_src
     $ open app_src/Hotkeyz/Hotkeyz.xcodeproj
