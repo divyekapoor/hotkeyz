@@ -94,7 +94,7 @@ TTF_Font *bigFont = NULL;
 
 std::stringstream sScore, sLives, sChain, sRemaining, sLvlEndTxt1, sLvlEndTxt2;
 
-SDL_Color textColor = {255, 255, 255};
+SDL_Color textColor = {255, 255, 255, 0};
 
 // global variables
 
