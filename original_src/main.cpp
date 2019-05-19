@@ -3,18 +3,26 @@
  intended to help users learn the mouse-click modifiers in ProTools (command click, option-shift click,
  etc). There are a total of seven levels.*/
 
-#include "SDL/SDL.h"
-#include "SDL/SDL_image.h"
-#include "SDL/SDL_thread.h"
-#include "SDL/SDL_ttf.h"
-#include "SDL/SDL_mixer.h"
+#include "SDL2/SDL.h"
+#include "SDL2_image/SDL_image.h"
+#include "SDL2/SDL_thread.h"
+#include "SDL2_ttf/SDL_ttf.h"
+#include "SDL2_mixer/SDL_mixer.h"
 #include <string>
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
 #include <vector>
 #include <sstream>
+#include <atomic>
 
+using std::cerr;
+using std::atomic_bool;
+
+SDL_Window* window = NULL;
+SDL_Renderer* renderer = NULL;
+
+atomic_bool shutdownThread(false);
 
 SDL_Surface *background[2][4] =
 {
@@ -381,12 +389,12 @@ void Shortcuts::ShowIcon()
 
 bool Shortcuts::CheckInput()
 {
-	Uint8 *keystates = SDL_GetKeyState(NULL);
+	const Uint8 *keystates = SDL_GetKeyboardState(NULL);
 
-	bool chk1 = (m_Ct == (keystates[SDLK_LCTRL] || keystates[SDLK_RCTRL]));
-	bool chk2 = (m_Op == (keystates[SDLK_LALT] || keystates[SDLK_RALT]));
-	bool chk3 = (m_Cm == (keystates[SDLK_LMETA] || keystates[SDLK_RMETA]));
-	bool chk4 = (m_Sh == (keystates[SDLK_LSHIFT] || keystates[SDLK_RSHIFT]));
+	bool chk1 = (m_Ct == (keystates[SDL_SCANCODE_LCTRL] || keystates[SDL_SCANCODE_RCTRL]));
+	bool chk2 = (m_Op == (keystates[SDL_SCANCODE_LALT] || keystates[SDL_SCANCODE_RALT]));
+	bool chk3 = (m_Cm == (keystates[SDL_SCANCODE_LGUI] || keystates[SDL_SCANCODE_RGUI]));
+	bool chk4 = (m_Sh == (keystates[SDL_SCANCODE_LSHIFT] || keystates[SDL_SCANCODE_RSHIFT]));
 	bool keyChk = (event.key.keysym.sym == m_Letter);
 	bool oll_korrect = ((chk1) && (chk2) && (chk3) && (chk4) && (keyChk));
 
@@ -534,12 +542,12 @@ void Hotkeys::ShowTxt()
 
 bool Hotkeys::CheckKeys(short int h, short int v)
 {
-	Uint8 *keystates = SDL_GetKeyState( NULL );
+	const Uint8 *keystates = SDL_GetKeyboardState(NULL);
 
-	bool chk1 = (m_Ct == (keystates[SDLK_LCTRL] || keystates[SDLK_RCTRL]));
-	bool chk2 = (m_Op == (keystates[SDLK_LALT] || keystates[SDLK_RALT]));
-	bool chk3 = (m_Cm == (keystates[SDLK_LMETA] || keystates[SDLK_RMETA]));
-	bool chk4 = (m_Sh == (keystates[SDLK_LSHIFT] || keystates[SDLK_RSHIFT]));
+	bool chk1 = (m_Ct == (keystates[SDL_SCANCODE_LCTRL] || keystates[SDL_SCANCODE_RCTRL]));
+	bool chk2 = (m_Op == (keystates[SDL_SCANCODE_LALT] || keystates[SDL_SCANCODE_RALT]));
+	bool chk3 = (m_Cm == (keystates[SDL_SCANCODE_LGUI] || keystates[SDL_SCANCODE_RGUI]));
+	bool chk4 = (m_Sh == (keystates[SDL_SCANCODE_LSHIFT] || keystates[SDL_SCANCODE_RSHIFT]));
 	bool mousePos =  ((v > (m_Ver + 10)) && (v < (m_Ver + 155)) && (h > (m_Hor + 5)) && (h < (m_Hor + 205)));
 	m_Match = ((chk1) && (chk2) && (chk3) && (chk4) && (mousePos));
 
@@ -600,7 +608,7 @@ int main(int argc, char** argv)
 	int waitTime, remainingTime;
 	bool startFinale;
 	Uint32 badTime, pauseOffset;
-	Uint8 *keystates = NULL;
+	const Uint8 *keystates = NULL;
 	Uint16 nonModifiers[81] = {8, 9, 13, 32, 39, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 59, 61, 91, 92, 93, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 256, 257, 258, 259, 260, 261, 262, 263, 264, 265, 266, 267, 268, 269, 270, 271, 273, 274, 282, 283, 284, 285, 286, 287, 288, 289, 290, 291, 292, 293};
 	std::vector<Uint16> lettersNumbers(nonModifiers, nonModifiers + 81);
 	std::vector<Uint16>::iterator letIter;
@@ -622,7 +630,7 @@ int main(int argc, char** argv)
 	// enable these 3 lines of code to skip levels:
 
 	/*apply_surface(10, 300, chooseTxt, screen);
-	SDL_Flip(screen);
+	SDL_RenderPresent(renderer);
 	debugLvl = getLevel();*/
 
 	if (getKeyboardType() == false)
@@ -663,7 +671,7 @@ int main(int argc, char** argv)
 		initialTime = SDL_GetTicks();
 
 		showShortcutBG();
-		SDL_Flip(screen);
+		SDL_RenderPresent(renderer);
 		Mix_PlayChannel(-1, scStartSound[MUSIC_SPEED[levelNum][0]], 0);
 		SDL_Delay(550);
 
@@ -692,7 +700,7 @@ int main(int argc, char** argv)
 				showSCclockstop();
 				showGameData();
 				apply_surface(X_MIC[micPos], 574, mic[(SDL_GetTicks() / 500) % 2], screen);
-				SDL_Flip(screen);
+				SDL_RenderPresent(renderer);
 
 				scStatus = 0;
 				if (SDL_PollEvent(&event))
@@ -706,9 +714,9 @@ int main(int argc, char** argv)
                     else if (event.type == SDL_KEYDOWN)
                     {
 
-                        keystates = SDL_GetKeyState(NULL);
+                        keystates = SDL_GetKeyboardState(NULL);
 
-                        if (keystates[SDLK_ESCAPE])
+                        if (keystates[SDL_SCANCODE_ESCAPE])
                         {
                             // lets you pause the game
                             pauseOffset = openPauseMenu();
@@ -723,12 +731,12 @@ int main(int argc, char** argv)
                             csTime += pauseOffset;
                         }
 
-                        else if ((keystates[SDLK_LEFT]) || (keystates[SDLK_RIGHT]))
+                        else if ((keystates[SDL_SCANCODE_LEFT]) || (keystates[SDL_SCANCODE_RIGHT]))
                         {
                             // lets you move the shotgun mic
                             moveMic(micPos);
                         }
-                        else if (keystates[SDLK_SPACE])
+                        else if (keystates[SDL_SCANCODE_SPACE])
                         {
                             if (csAvail)
                             {
@@ -935,7 +943,7 @@ int main(int argc, char** argv)
 			Mix_PlayMusic(BGmusic2, -1);
 			initialTime = SDL_GetTicks();
 
-			thread1 = SDL_CreateThread(gen_thread, NULL);
+			thread1 = SDL_CreateThread(gen_thread, "gen_thread", NULL);
 		}
 
 		/* This is the "mouse-click modifiers" part of the level. Icons that represent ProTools
@@ -976,7 +984,7 @@ int main(int argc, char** argv)
 			{
 				hk[i].ShowTxt();
 			}
-			SDL_Flip(screen);
+			SDL_RenderPresent(renderer);
 
 			if (!startFinale)
 			{
@@ -1069,7 +1077,7 @@ int main(int argc, char** argv)
 
 				else if (event.type == SDL_KEYDOWN)
 				{
-					if ((event.key.keysym.sym == SDLK_SPACE) && (csAvail) && (!stopClock))
+					if ((event.key.keysym.sym == SDL_SCANCODE_SPACE) && (csAvail) && (!stopClock))
                     {
                         // if you activate a stopClock powerup
                         csAvail = false;
@@ -1081,7 +1089,7 @@ int main(int argc, char** argv)
                         Mix_PlayChannel(3, csMusic, 0);
                     }
 
-                    else if (event.key.keysym.sym == SDLK_ESCAPE)
+                    else if (event.key.keysym.sym == SDL_SCANCODE_ESCAPE)
                     {
                         // if you pause the game
                         pauseOffset = openPauseMenu();
@@ -1156,13 +1164,12 @@ SDL_Surface *load_image(std::string filename)
 
     if (loadedImage != NULL)
     {
-        optimizedImage = SDL_DisplayFormatAlpha(loadedImage);
-
+        optimizedImage = SDL_ConvertSurface(loadedImage, screen->format, NULL);
         SDL_FreeSurface(loadedImage);
 
         if (optimizedImage != NULL)
         {
-            SDL_SetColorKey(optimizedImage, SDL_SRCCOLORKEY, SDL_MapRGB( optimizedImage->format, 0, 0xFF, 0xFF));
+            SDL_SetColorKey(optimizedImage, SDL_TRUE, SDL_MapRGB( optimizedImage->format, 0, 0xFF, 0xFF));
         }
     }
 
@@ -1181,34 +1188,47 @@ void apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination, 
 
 bool init()
 {
-    if (SDL_Init(SDL_INIT_EVERYTHING) == -1)
+    if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
     {
         return false;
     }
-
-    screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_SWSURFACE);
-
-    if (screen == NULL)
-    {
+    
+    window = SDL_CreateWindow("HotKeyz", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
+    if (window == NULL) {
+        cerr << "Unable to open window!\n";
         return false;
+    }
+    
+    renderer = SDL_CreateRenderer(window, -1, 0);
+
+    if (renderer == NULL) {
+        cerr << "Unable to open renderer!\n";
+        return false;
+    }
+    
+    screen = SDL_GetWindowSurface(window);
+    
+    if (screen == NULL) {
+        cerr << "Unable to open screen!\n";
     }
 
     if (TTF_Init() == -1)
     {
+        cerr << "Unable to init TTF!\n";
         return false;
     }
 
 	if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, AUDIO_S16SYS, 2, 4096) == -1)
 	{
+        cerr << "Unable to init Mix_OpenAudio!\n";
 		return false;
 	}
 
 	if (Mix_AllocateChannels(4) == -1)
 	{
+        cerr << "Unable to init Mix_AllocateChannels!\n";
 		return false;
 	}
-
-    SDL_WM_SetCaption("HotKeyz", NULL);
 
     return true;
 }
@@ -1410,7 +1430,9 @@ bool load_files()
 
 void clean_up()
 {
-	SDL_KillThread(thread1);
+    shutdownThread.store(true);
+    int thread_return_status = 0;
+    SDL_WaitThread(thread1, &thread_return_status);
 
 	SDL_FreeSurface(csFrame);
 	SDL_FreeSurface(csPowerup);
@@ -1508,7 +1530,7 @@ bool getKeyboardType()
 	{
 		apply_surface(0, 0, keyboardPrompt, screen);
 		apply_surface(0, 0, keyboardTypes[kbType], screen);
-		SDL_Flip(screen);
+		SDL_RenderPresent(renderer);
 
 		while (!SDL_PollEvent(&event))
 		{}
@@ -1532,15 +1554,15 @@ bool getKeyboardType()
 		}
 		else if (event.type == SDL_KEYDOWN)
 		{
-			if (event.key.keysym.sym == SDLK_UP)
+			if (event.key.keysym.sym == SDL_SCANCODE_UP)
 			{
 				kbType = 0;
 			}
-			else if (event.key.keysym.sym == SDLK_DOWN)
+			else if (event.key.keysym.sym == SDL_SCANCODE_DOWN)
 			{
 				kbType = 1;
 			}
-			else if ((event.key.keysym.sym == SDLK_RETURN) || (event.key.keysym.sym == SDLK_KP_ENTER))
+			else if ((event.key.keysym.sym == SDL_SCANCODE_RETURN) || (event.key.keysym.sym == SDL_SCANCODE_KP_ENTER))
 			{
 				break;
 			}
@@ -1684,7 +1706,7 @@ void endGameData(unsigned short int bc)
 		apply_surface(120, 440, scoreTxt, screen);
 	}
 
-	SDL_Flip(screen);
+	SDL_RenderPresent(renderer);
 
 	SDL_EventState(SDL_KEYDOWN, SDL_IGNORE);
 	SDL_Delay(250);
@@ -1694,7 +1716,7 @@ void endGameData(unsigned short int bc)
 	{
 		if (SDL_PollEvent(&event))
 		{
-			if ((event.key.keysym.sym == SDLK_SPACE) || (event.type == SDL_QUIT))
+			if ((event.key.keysym.sym == SDL_SCANCODE_SPACE) || (event.type == SDL_QUIT))
             {
                 break;
             }
@@ -1788,7 +1810,7 @@ void scReviewScreen()
 
 	apply_surface(0, 0, scBackground[0], screen);
 	apply_surface(0, 0, scReview[levelNum], screen);
-	SDL_Flip(screen);
+	SDL_RenderPresent(renderer);
 
 	SDL_EventState(SDL_KEYDOWN, SDL_IGNORE);
 	SDL_Delay(500);
@@ -1800,7 +1822,7 @@ void scReviewScreen()
 		{
 			if (SDL_PollEvent(&event))
 			{
-				if ((event.key.keysym.sym == SDLK_SPACE) || (event.type == SDL_QUIT))
+				if ((event.key.keysym.sym == SDL_SCANCODE_SPACE) || (event.type == SDL_QUIT))
                 {
                     break;
                 }
@@ -1813,7 +1835,7 @@ void scReviewScreen()
 		{
 			apply_surface(0, 0, scBackground[0], screen);
 			apply_surface(0, 0, scReview[reviewNum], screen);
-			SDL_Flip(screen);
+			SDL_RenderPresent(renderer);
 
 			while (true)
 			{
@@ -1821,7 +1843,7 @@ void scReviewScreen()
 				{
                     if (event.type == SDL_KEYDOWN)
                     {
-                        if (event.key.keysym.sym == SDLK_LEFT)
+                        if (event.key.keysym.sym == SDL_SCANCODE_LEFT)
                         {
                             reviewNum--;
                             if (reviewNum < 6)
@@ -1830,7 +1852,7 @@ void scReviewScreen()
                             }
                             break;
                         }
-                        if (event.key.keysym.sym == SDLK_RIGHT)
+                        if (event.key.keysym.sym == SDL_SCANCODE_RIGHT)
                         {
                             reviewNum++;
                             if (reviewNum > 7)
@@ -1839,7 +1861,7 @@ void scReviewScreen()
                             }
                             break;
                         }
-                        if (event.key.keysym.sym == SDLK_SPACE)
+                        if (event.key.keysym.sym == SDL_SCANCODE_SPACE)
                         {
                             keepLooping = false;
                             break;
@@ -1861,7 +1883,7 @@ void scReviewScreen()
 void reviewScreen()
 {
 	apply_surface(0, 0, review[levelNum], screen);
-	SDL_Flip(screen);
+	SDL_RenderPresent(renderer);
 
 	Mix_PlayMusic(reviewMusic2, -1);
 
@@ -1873,7 +1895,7 @@ void reviewScreen()
 	{
 		if (SDL_PollEvent(&event))
 		{
-			if ((event.key.keysym.sym == SDLK_SPACE) || (event.type == SDL_QUIT))
+			if ((event.key.keysym.sym == SDL_SCANCODE_SPACE) || (event.type == SDL_QUIT))
             {
                 break;
             }
@@ -2107,14 +2129,14 @@ void moveMic(short int& rMicPos)
 {
 	switch (event.key.keysym.sym)
 	{
-		case SDLK_LEFT:
+		case SDL_SCANCODE_LEFT:
 			rMicPos--;
 			if (rMicPos < 0)
 			{
 				rMicPos = 3;
 			}
 			break;
-		case SDLK_RIGHT:
+		case SDL_SCANCODE_RIGHT:
 			rMicPos++;
 			if (rMicPos > 3)
 			{
@@ -2166,22 +2188,22 @@ Uint32 openPauseMenu()
     while (true)
     {
         apply_surface(0, 0, pauseMenu[menuType], screen);
-        SDL_Flip(screen);
+        SDL_RenderPresent(renderer);
 
         while (!SDL_PollEvent(&event))
         {}
 
         if (event.type == SDL_KEYDOWN)
         {
-            if ((event.key.keysym.sym == SDLK_RETURN) || (event.key.keysym.sym == SDLK_KP_ENTER))
+            if ((event.key.keysym.sym == SDL_SCANCODE_RETURN) || (event.key.keysym.sym == SDL_SCANCODE_KP_ENTER))
             {
                 break;
             }
-            else if (event.key.keysym.sym == SDLK_UP)
+            else if (event.key.keysym.sym == SDL_SCANCODE_UP)
             {
                 menuType = 0;
             }
-            else if (event.key.keysym.sym == SDLK_DOWN)
+            else if (event.key.keysym.sym == SDL_SCANCODE_DOWN)
             {
                 menuType = 1;
             }
@@ -2233,6 +2255,11 @@ int gen_thread(void *data)
 	Uint32 regenTime;
 
 	SDL_Delay(50);
+    
+    // Check if we've been asked to shut down.
+    if (shutdownThread.load()) {
+        return 0;
+    }
 
 	while (roundPart == 1)
 	{
@@ -2245,10 +2272,20 @@ int gen_thread(void *data)
 			{
 				break;
 			}
+            
+            // Check if we've been asked to shut down.
+            if (shutdownThread.load()) {
+                break;
+            }
 		}
 
 		respawn = true;
 		SDL_Delay(50);
+        
+        // Check if we've been asked to shut down.
+        if (shutdownThread.load()) {
+            return 0;
+        }
 	}
 
 	return 0;
