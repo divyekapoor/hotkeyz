@@ -1513,6 +1513,8 @@ void clean_up()
 
     TTF_Quit();
 
+    SDL_FreeSurface(screen);
+    SDL_DestroyWindow(window);
     SDL_Quit();
 }
 
