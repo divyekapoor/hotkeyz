@@ -12,16 +12,31 @@
 		FDC7269522915C1300976335 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDC7269122915C1300976335 /* SDL2.framework */; };
 		FDC7269622915C1300976335 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDC7269222915C1300976335 /* SDL2_image.framework */; };
 		FDC7269722915C1300976335 /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDC7269322915C1300976335 /* SDL2_mixer.framework */; };
+		FDC726AB2291657600976335 /* Resources in Copy Files (Resources) */ = {isa = PBXBuildFile; fileRef = FD89F92322915B5D0012EC4E /* Resources */; };
+		FDC726AC229166CA00976335 /* Frameworks in Copy Files (Frameworks) */ = {isa = PBXBuildFile; fileRef = FD89F90522914A070012EC4E /* Frameworks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		FD89F84322913AAF0012EC4E /* CopyFiles */ = {
+		FD89F84322913AAF0012EC4E /* Copy Files (Frameworks) */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 12;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				FDC726AC229166CA00976335 /* Frameworks in Copy Files (Frameworks) */,
 			);
+			name = "Copy Files (Frameworks)";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FDC726A9229164E400976335 /* Copy Files (Resources) */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				FDC726AB2291657600976335 /* Resources in Copy Files (Resources) */,
+			);
+			name = "Copy Files (Resources)";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -109,7 +124,8 @@
 			buildPhases = (
 				FD89F84122913AAF0012EC4E /* Sources */,
 				FD89F84222913AAF0012EC4E /* Frameworks */,
-				FD89F84322913AAF0012EC4E /* CopyFiles */,
+				FD89F84322913AAF0012EC4E /* Copy Files (Frameworks) */,
+				FDC726A9229164E400976335 /* Copy Files (Resources) */,
 			);
 			buildRules = (
 			);
